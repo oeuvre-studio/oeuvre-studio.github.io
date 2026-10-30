@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Website Quote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Serif:ital@1&family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+html{color-scheme:light}
+/* Layout: one quote document (hero + ticket, three package cards, comparison tables, terms). Add #edit to the link to reveal the fill-in panel; clients never see it. */
+:root {
+  --bg: #faf7f3;
+  --surface: #ffffff;
+  --fg: #231a14;
+  --muted: #6e6259;
+  --line: #ebe0d6;
+  --accent: #f37021;
+  --accent-ink: #b9500f;
+  --accent-soft: #fdecdf;
+  --on-accent: #2a170b;
+  --hero-tint: rgba(255, 255, 255, .22);
+  --studio: "Bricolage Grotesque", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+  --studio-italic: "Instrument Serif", "Songti SC", Georgia, serif;
+  --display: "Young Serif", Georgia, "Songti SC", serif;
+  --body: "Figtree", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16120f; --surface: #1e1915; --fg: #efe8e1; --muted: #aa9d92;
+    --line: #352b24; --accent: #f37021; --accent-ink: #ff8f4d; --accent-soft: #2f1f14; --on-accent: #1a0e06;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16120f; --surface: #1e1915; --fg: #efe8e1; --muted: #aa9d92;
+  --line: #352b24; --accent: #f37021; --accent-ink: #ff8f4d; --accent-soft: #2f1f14; --on-accent: #1a0e06;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55; margin: 0; }
+.z { display: none; }
+body.lang-zh .e { display: none; }
+body.lang-zh .z { display: inline; }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 64px; display: grid; gap: 48px; }
+
+/* Fill-in panel (only with #edit in the link) */
+.editor { background: var(--surface); border: 2px dashed var(--accent); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
+.editor h2 { font-size: 20px; }
+.editor p { margin: 0; color: var(--muted); font-size: 13px; max-width: 70ch; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.fields label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: .03em; min-width: 0; }
+.fields input { font: inherit; font-size: 15px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%; box-sizing: border-box; font-variant-numeric: tabular-nums; }
+.fields input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.fields .wide { grid-column: 1 / -1; }
+.group-label { margin: 4px 0 -4px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); }
+.editor-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.editor-actions button { font: inherit; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.editor-actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+h1 { font-family: var(--display); font-weight: 400; margin: 0; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 26px; margin: 0; text-wrap: balance; }
+.section { display: grid; gap: 20px; }
+.section > p { margin: 0; color: var(--muted); max-width: 66ch; }
+
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.card.rec { border: 2px solid var(--accent); }
+.card-head { display: grid; gap: 6px; }
+.tag { justify-self: start; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); padding: 3px 10px; border-radius: 999px; }
+.tag.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.card h3 { font-family: var(--display); font-weight: 400; font-size: 22px; margin: 0; }
+.card .for { margin: 0; color: var(--muted); font-size: 14px; }
+.price { display: grid; gap: 4px; padding-block: 14px; border-block: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.price .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.price .lbl { color: var(--muted); font-size: 13px; }
+.price .amt { font-weight: 700; font-size: 20px; }
+.price .amt small { font-weight: 500; font-size: 13px; color: var(--muted); }
+.price .note { font-size: 12px; color: var(--muted); }
+.card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14px; }
+.card li { display: grid; grid-template-columns: 16px 1fr; gap: 8px; }
+.card li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 8px; }
+.card .sub { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.year { margin-top: auto; background: var(--accent-soft); border-radius: 8px; padding: 12px 14px; display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.year strong { font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+thead th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.c, th.c { text-align: center; font-variant-numeric: tabular-nums; }
+.yes { color: var(--accent-ink); font-weight: 700; }
+.no { color: var(--muted); }
+tfoot td { font-weight: 700; background: var(--accent-soft); }
+
+.callout { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.callout h3 { font-family: var(--display); font-weight: 400; font-size: 22px; margin: 0 0 8px; }
+.callout p { margin: 0; color: var(--muted); }
+.callout .big { font-variant-numeric: tabular-nums; display: grid; gap: 4px; }
+.callout .big b { font-size: 30px; font-family: var(--display); font-weight: 400; color: var(--fg); }
+.callout .big .u { font-size: 16px; font-family: var(--body); color: var(--muted); }
+.callout .big span.s { color: var(--muted); font-size: 13px; }
+
+ol.terms { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 72ch; }
+ol.terms li { padding-left: 4px; }
+
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 2px solid var(--accent); padding-top: 12px; display: grid; gap: 4px; font-size: 14px; }
+.steps li::before { content: counter(s); font-family: var(--display); font-size: 20px; color: var(--accent-ink); }
+.steps b { font-weight: 600; }
+.steps span.d { color: var(--muted); }
+
+.hero { position: relative; overflow: hidden; background: var(--accent); color: var(--on-accent); border-radius: 18px; padding: clamp(20px, 4vw, 40px); display: grid; gap: clamp(28px, 5vw, 48px); isolation: isolate; }
+.hero-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.kicker { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.toggle { display: inline-flex; border: 1px solid transparent; border-radius: 999px; padding: 3px; background: var(--hero-tint); }
+.toggle button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--on-accent); padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--on-accent); color: var(--accent); }
+.toggle button:focus-visible { outline: 2px solid var(--on-accent); outline-offset: 2px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 250px); gap: clamp(24px, 4vw, 48px); align-items: end; }
+.hero-text { display: grid; gap: 18px; min-width: 0; }
+.statement { margin: 0; font-family: var(--studio); font-weight: 700; font-size: clamp(40px, 7.4vw, 84px); line-height: .94; letter-spacing: -.035em; text-wrap: balance; }
+.statement i { font-family: var(--studio-italic); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+body.lang-zh .statement { letter-spacing: 0; line-height: 1.12; font-size: clamp(36px, 6.4vw, 70px); }
+.hero-lede { margin: 0; max-width: 52ch; font-size: 16px; }
+.ticket { background: var(--surface); color: var(--fg); border-radius: 10px; padding: 16px 18px; display: grid; gap: 8px; position: relative; min-width: 0; box-shadow: 0 18px 40px -24px rgba(40, 20, 6, .55); }
+.ticket::before, .ticket::after { content: ""; position: absolute; top: 62px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+.ticket::before { left: -8px; } .ticket::after { right: -8px; }
+.ticket-label { margin: 0; line-height: 1.2; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); }
+.ticket-no { margin: 0 0 4px; line-height: 1.2; font-family: var(--display); font-size: 20px; font-variant-numeric: tabular-nums; padding-bottom: 10px; border-bottom: 1.5px dashed var(--line); overflow-wrap: anywhere; }
+.ticket dl { margin: 0; display: grid; gap: 6px; }
+.ticket dl div { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; }
+.ticket dt { color: var(--muted); white-space: nowrap; }
+.ticket dd { margin: 0; font-weight: 600; text-align: right; min-width: 0; overflow-wrap: anywhere; }
+.ticket-foot { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+@media (max-width: 760px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 860px) {
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  .callout { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .toggle button { transition: background .15s, color .15s; }
+}
+</style>
+</head><body>
+
+<div class="wrap">
+
+  <section class="editor" id="editor" hidden aria-labelledby="h-ed">
+    <h2 id="h-ed">Fill in this quote</h2>
+    <p>Only you see this panel (the link ends in #edit). Fill in the fields, then copy the client link at the bottom and send it. The client sees exactly these values; nothing is stored on the server.</p>
+    <div class="fields">
+      <label class="wide" for="f-areas">Areas to rank for (shown in Growth)<input id="f-areas" data-k="areas" type="text"></label>
+    </div>
+    <p class="group-label">Prices (NZD, excluding GST)</p>
+    <div class="fields">
+      <label for="p-eb">Essential build<input id="p-eb" data-k="eb" type="number" min="0" step="50"></label>
+      <label for="p-em">Essential monthly<input id="p-em" data-k="em" type="number" min="0" step="5"></label>
+      <label for="p-gb">Growth build<input id="p-gb" data-k="gb" type="number" min="0" step="50"></label>
+      <label for="p-gm">Growth monthly<input id="p-gm" data-k="gm" type="number" min="0" step="5"></label>
+      <label for="p-cb">Complete build (12-month deal)<input id="p-cb" data-k="cb" type="number" min="0" step="50"></label>
+      <label for="p-sl">Social Lite monthly<input id="p-sl" data-k="sl" type="number" min="0" step="10"></label>
+      <label for="p-sf">Social Full monthly<input id="p-sf" data-k="sf" type="number" min="0" step="10"></label>
+      <label for="p-pm">Growth paid monthly (24 months)<input id="p-pm" data-k="pm" type="number" min="0" step="5"></label>
+    </div>
+    <div class="fields"><label class="wide" for="f-link">Client link<input id="f-link" type="text" readonly></label></div>
+    <div class="editor-actions"><button type="button" id="copy">Copy client link</button><button type="button" id="reset">Reset to defaults</button></div>
+  </section>
+
+  <header class="hero">
+    <div class="hero-bar">
+      <span class="kicker"><span class="e">Proposal</span><span class="z">合作方案</span></span>
+      <div class="toggle" role="group" aria-label="Language">
+        <button type="button" id="btn-en" aria-pressed="true">EN</button>
+        <button type="button" id="btn-zh" aria-pressed="false">中文</button>
+      </div>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="kicker"><span class="e">Design · Build · Manage</span><span class="z">设计 · 搭建 · 运营</span></p>
+        <h1 class="statement"><span class="e">Website,<br>Google <i>&amp;</i><br>Social media.</span><span class="z">网站、<br>Google<br><i>与社交媒体。</i></span></h1>
+        <p class="hero-lede"><span class="e">A proposal for a website and online presence that turns local searches into enquiries and bookings.</span><span class="z">一份网站与线上运营方案，把附近的搜索变成实实在在的咨询与预约。</span></p>
+      </div>
+      <aside class="ticket" aria-label="Pricing">
+        <p class="ticket-label"><span class="e">Pricing</span><span class="z">价格</span></p>
+        <p class="ticket-no"><span class="e">3 plans</span><span class="z">3 个方案</span></p>
+        <p class="ticket-foot"><span class="e">NZD · excluding GST</span><span class="z">纽币 · 不含 GST</span></p>
+      </aside>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="h-pk">
+    <h2 id="h-pk"><span class="e">Packages</span><span class="z">套餐</span></h2>
+    <p><span class="e">All prices are in NZD and exclude GST.</span><span class="z">以下价格均为纽币，不含 GST。</span></p>
+    <div class="cards">
+
+      <article class="card">
+        <div class="card-head">
+          <span class="tag ghost"><span class="e">Website</span><span class="z">官网</span></span>
+          <h3>Essential</h3>
+          <p class="for"><span class="e">A clean, professional website that shows your services and takes enquiries.</span><span class="z">简洁专业的官网，展示服务并接收咨询。</span></p>
+        </div>
+        <div class="price">
+          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt" data-b="eb$"></span></div>
+          <div class="row"><span class="lbl"><span class="e">Hosting &amp; care</span><span class="z">托管维护</span></span><span class="amt"><span data-b="em$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+        </div>
+        <p class="sub"><span class="e">Website</span><span class="z">网站内容</span></p>
+        <ul>
+          <li><span class="e">4–5 pages: home, services &amp; prices, about, contact &amp; map, booking or enquiry</span><span class="z">4–5 页：首页、服务价目、关于我们、联系与地图、预约或咨询</span></li>
+          <li><span class="e">Designed for phones first</span><span class="z">手机优先设计</span></li>
+          <li><span class="e">Booking or enquiry buttons on every page</span><span class="z">每页接入预约或咨询按钮</span></li>
+          <li><span class="e">Basic search setup (titles, descriptions, Google Maps)</span><span class="z">基础搜索优化（标题、描述、Google 地图）</span></li>
+          <li><span class="e">2 rounds of revisions · about 2 weeks</span><span class="z">2 轮修改 · 约 2 周上线</span></li>
+        </ul>
+        <p class="sub"><span class="e">Every month</span><span class="z">每月包含</span></p>
+        <ul>
+          <li><span class="e">NZ hosting, SSL, daily backups, updates</span><span class="z">新西兰服务器托管、SSL、每日备份、系统更新</span></li>
+          <li><span class="e">Up to 30 minutes of small edits</span><span class="z">30 分钟内的小修改</span></li>
+        </ul>
+        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong data-b="ey$"></strong></div>
+      </article>
+
+      <article class="card rec">
+        <div class="card-head">
+          <span class="tag"><span class="e">Recommended</span><span class="z">推荐</span></span>
+          <h3>Growth</h3>
+          <p class="for"><span class="e">Website plus local Google presence, so more people nearby find you and get in touch.</span><span class="z">官网加 Google 本地曝光，让附近更多人找到您并联系您。</span></p>
+        </div>
+        <div class="price">
+          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt" data-b="gb$"></span></div>
+          <div class="row"><span class="lbl"><span class="e">Care &amp; local growth</span><span class="z">维护与本地获客</span></span><span class="amt"><span data-b="gm$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+        </div>
+        <p class="sub"><span class="e">Everything in Essential, plus</span><span class="z">包含 Essential 全部内容，另加</span></p>
+        <ul>
+          <li><span class="e">6–8 pages, adding gift vouchers, gallery, team, FAQ &amp; booking policy</span><span class="z">6–8 页，增加礼品券、相册、团队介绍、常见问题与预约须知</span></li>
+          <li><span class="e">Website copy written for local search: <span data-b="areas"></span></span><span class="z">针对本地搜索撰写文案：<span data-b="areas"></span></span></li>
+          <li><span class="e">Google Business Profile set up and optimised</span><span class="z">Google 商家资料设置与优化</span></li>
+          <li><span class="e">Google Analytics and Search Console</span><span class="z">接入 Google Analytics 与 Search Console</span></li>
+          <li><span class="e">Review kit: in-store QR cards and a text-message template</span><span class="z">好评收集工具：店内二维码卡片和短信邀评模板</span></li>
+          <li><span class="e">3 rounds of revisions · about 3–4 weeks</span><span class="z">3 轮修改 · 约 3–4 周上线</span></li>
+        </ul>
+        <p class="sub"><span class="e">Every month</span><span class="z">每月包含</span></p>
+        <ul>
+          <li><span class="e">Hosting, backups and updates</span><span class="z">托管、备份与更新</span></li>
+          <li><span class="e">Up to 2 hours of updates: prices, promotions, new services</span><span class="z">2 小时内容更新：价格、活动、新项目</span></li>
+          <li><span class="e">4 Google Business posts</span><span class="z">4 条 Google 商家动态</span></li>
+          <li><span class="e">Replies to your Google reviews</span><span class="z">代回复 Google 评价</span></li>
+          <li><span class="e">Monthly report: visits, enquiry clicks, new reviews</span><span class="z">月度报告：访问量、咨询点击、新增评价</span></li>
+        </ul>
+        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong data-b="gy$"></strong></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <span class="tag ghost"><span class="e">Fully managed</span><span class="z">全托管</span></span>
+          <h3>Complete</h3>
+          <p class="for"><span class="e">Everything handled for you: website, Google and Facebook &amp; Instagram.</span><span class="z">线上全部交给我们：官网、Google、Facebook 和 Instagram。</span></p>
+        </div>
+        <div class="price">
+          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt" data-b="cb$"></span></div>
+          <div class="note"><span class="e">Reduced from <span data-b="gb$"></span> with a 12-month agreement</span><span class="z">签约 12 个月，由 <span data-b="gb$"></span> 减至 <span data-b="cb$"></span></span></div>
+          <div class="row"><span class="lbl">Social Lite</span><span class="amt"><span data-b="sl$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+          <div class="row"><span class="lbl">Social Full</span><span class="amt"><span data-b="sf$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+        </div>
+        <p class="sub"><span class="e">Everything in Growth, plus</span><span class="z">包含 Growth 全部内容，另加</span></p>
+        <ul>
+          <li><span class="e">Facebook and Instagram managed every month</span><span class="z">每月运营 Facebook 与 Instagram</span></li>
+          <li><span class="e">12 designed posts with captions</span><span class="z">每月 12 条设计图文与文案</span></li>
+          <li><span class="e">Weekly Stories</span><span class="z">每周 Stories</span></li>
+          <li><span class="e">Seasonal campaigns, e.g. Mother's Day and Christmas gift vouchers</span><span class="z">节日活动策划，如母亲节、圣诞礼品券</span></li>
+          <li><span class="e">Full adds 4 Reels a month and weekday replies to comments and messages</span><span class="z">Full 版另含每月 4 条 Reels 和工作日评论私信回复</span></li>
+        </ul>
+        <p class="sub"><span class="e">Monthly fee also includes</span><span class="z">月费同时包含</span></p>
+        <ul>
+          <li><span class="e">All Growth monthly services</span><span class="z">Growth 套餐全部月度服务</span></li>
+        </ul>
+        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong><span class="e">from </span><span class="z">起 </span><span data-b="cy$"></span></strong></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-soc">
+    <h2 id="h-soc"><span class="e">Social media: Lite or Full</span><span class="z">社交媒体：Lite 与 Full 对比</span></h2>
+    <p><span class="e">Both options include every Growth monthly service. Choose based on how much video and day-to-day replying you want handled.</span><span class="z">两个版本都包含 Growth 的全部月度服务，区别在于视频内容和日常回复。</span></p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col"><span class="e">Each month</span><span class="z">每月内容</span></th><th scope="col" class="c">Social Lite</th><th scope="col" class="c">Social Full</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="e">Platforms</span><span class="z">平台</span></td><td class="c">Facebook + Instagram</td><td class="c">Facebook + Instagram</td></tr>
+          <tr><td><span class="e">Designed posts with captions</span><span class="z">设计图文与文案</span></td><td class="c">12</td><td class="c">12</td></tr>
+          <tr><td><span class="e">Stories</span><span class="z">Stories</span></td><td class="c"><span class="e">Weekly</span><span class="z">每周</span></td><td class="c"><span class="e">Weekly</span><span class="z">每周</span></td></tr>
+          <tr><td><span class="e">Reels (edited from your photos and video)</span><span class="z">Reels 短视频（用您提供的素材剪辑）</span></td><td class="c no">—</td><td class="c yes">4</td></tr>
+          <tr><td><span class="e">Replies to comments and messages (weekdays)</span><span class="z">评论与私信回复（工作日）</span></td><td class="c no">—</td><td class="c yes">✓</td></tr>
+          <tr><td><span class="e">Seasonal campaigns</span><span class="z">节日活动策划</span></td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+          <tr><td><span class="e">Monthly performance report</span><span class="z">月度数据报告</span></td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+          <tr><td><span class="e">Growth monthly services (website care, Google posts, review replies)</span><span class="z">Growth 月度服务（网站维护、Google 动态、评价回复）</span></td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td><span class="e">Monthly fee</span><span class="z">月费</span></td><td class="c" data-b="sl$"></td><td class="c" data-b="sf$"></td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-pm">
+    <h2 id="h-pm"><span class="e">Prefer to spread the cost?</span><span class="z">想分期支付？</span></h2>
+    <div class="callout">
+      <div>
+        <h3><span class="e">Growth, paid monthly</span><span class="z">Growth 套餐月付</span></h3>
+        <p><span class="e">The full Growth website and monthly service with nothing to pay upfront. 24-month agreement. The website becomes yours at the end of the term, and the fee then drops to the standard <span data-b="gm$"></span>/month (or <span data-b="em$"></span>/month for hosting only).</span><span class="z">完整的 Growth 网站与月度服务，无需首付。签约 24 个月，期满后网站归您所有，月费降至标准的 <span data-b="gm$"></span>/月（或只保留托管 <span data-b="em$"></span>/月）。</span></p>
+      </div>
+      <div class="big">
+        <b>$0 <span class="u"><span class="e">upfront</span><span class="z">首付</span></span></b>
+        <b><span data-b="pm$"></span><span class="u"><span class="e">/month</span><span class="z">/月</span></span></b>
+        <span class="s"><span class="e">for 24 months</span><span class="z">共 24 个月</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-add">
+    <h2 id="h-add"><span class="e">Add-ons</span><span class="z">单项加购</span></h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th scope="col"><span class="e">Service</span><span class="z">项目</span></th><th scope="col" class="num"><span class="e">Price</span><span class="z">价格</span></th></tr></thead>
+        <tbody>
+          <tr><td><span class="e">English + Chinese bilingual website</span><span class="z">中英双语网站</span></td><td class="num"><span class="e">+$700 one-off</span><span class="z">+$700 一次性</span></td></tr>
+          <tr><td><span class="e">On-site photo and video shoot (half day)</span><span class="z">上门拍摄照片与视频素材（半天）</span></td><td class="num"><span class="e">$400 per shoot</span><span class="z">$400/次</span></td></tr>
+          <tr><td><span class="e">Facebook &amp; Instagram ads management (ad spend paid directly to Meta, suggested from $300/month)</span><span class="z">Facebook 与 Instagram 广告投放管理（广告费由您直接支付给 Meta，建议每月 $300 起）</span></td><td class="num"><span class="e">$250/month</span><span class="z">$250/月</span></td></tr>
+          <tr><td><span class="e">Google Business Profile setup only (no website)</span><span class="z">仅 Google 商家资料优化（不含网站）</span></td><td class="num"><span class="e">$300 one-off</span><span class="z">$300 一次性</span></td></tr>
+          <tr><td><span class="e">Extra changes or new features</span><span class="z">额外修改或新增功能</span></td><td class="num"><span class="e">$75/hour</span><span class="z">$75/小时</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-st">
+    <h2 id="h-st"><span class="e">Getting started</span><span class="z">合作流程</span></h2>
+    <ol class="steps">
+      <li><b><span class="e">Choose a plan</span><span class="z">选择方案</span></b><span class="d"><span class="e">Confirm the package and any add-ons.</span><span class="z">确认套餐与加购项目。</span></span></li>
+      <li><b><span class="e">Deposit &amp; kickoff</span><span class="z">付定金并启动</span></b><span class="d"><span class="e">50% deposit, then a short call to collect photos, prices and details.</span><span class="z">支付 50% 定金，简短沟通收集照片、价目和资料。</span></span></li>
+      <li><b><span class="e">Review the draft</span><span class="z">审阅初稿</span></b><span class="d"><span class="e">You see the full site and request changes.</span><span class="z">查看完整网站并提出修改。</span></span></li>
+      <li><b><span class="e">Launch</span><span class="z">正式上线</span></b><span class="d"><span class="e">Final payment, site goes live, monthly service begins.</span><span class="z">付清尾款，网站上线，月度服务开始。</span></span></li>
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="h-t">
+    <h2 id="h-t"><span class="e">Terms</span><span class="z">条款</span></h2>
+    <ol class="terms">
+      <li><span class="e">Website build: 50% deposit to start, 50% on launch.</span><span class="z">建站费：50% 定金启动，上线时付清余款。</span></li>
+      <li><span class="e">Monthly plans are billed in advance, with a 6-month minimum (12 months for the Complete build discount, 24 months for pay-monthly). After the minimum term, cancel with 30 days' notice.</span><span class="z">月费按月预付，最少 6 个月（Complete 建站优惠需签 12 个月，月付方案需签 24 个月）。期满后提前 30 天通知即可取消。</span></li>
+      <li><span class="e">Your domain is registered in your business name. The website is yours once the build fee is paid in full.</span><span class="z">域名注册在您的公司名下。建站费付清后网站归您所有。</span></li>
+      <li><span class="e">You provide photos, prices and business details, and confirm you have the right to use any photos you supply.</span><span class="z">照片、价目和资料由您提供，并确认您有权使用所提供的照片。</span></li>
+      <li><span class="e">Social posts are sent for approval one week ahead. If there is no reply within 48 hours, they are treated as approved.</span><span class="z">社媒内容提前一周发送审核，48 小时内未回复视为同意。</span></li>
+      <li><span class="e">Revisions are as listed in each package. Extra changes are $75/hour. Advertising spend is not included in any fee.</span><span class="z">修改次数按各套餐说明，超出部分按 $75/小时收费。所有费用均不含广告投放费。</span></li>
+      <li><span class="e">All content follows NZ advertising standards: no medical or cure claims.</span><span class="z">所有内容遵守新西兰广告标准，不使用医疗或治疗功效宣传。</span></li>
+    </ol>
+  </section>
+
+  <footer>
+    <span class="e">All prices in NZD, excluding GST.</span><span class="z">所有价格为纽币，不含 GST。</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var iso = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  var today = new Date();
+  var DEFAULTS = {
+    areas: 'your suburb and the towns around it',
+    eb: 1500, em: 80, gb: 2900, gm: 199, cb: 2200, sl: 850, sf: 1200, pm: 329
+  };
+  var KEY = 'wq-template-v1', S = {};
+  function load() {
+    var q = new URLSearchParams(location.search), fromUrl = {}, saved = {};
+    Object.keys(DEFAULTS).forEach(function (k) { if (q.has(k)) fromUrl[k] = q.get(k); });
+    if (!Object.keys(fromUrl).length) {
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
+    }
+    S = Object.assign({}, DEFAULTS, saved, fromUrl);
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function parse(v) { var p = String(v).split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2]); return isNaN(d) ? new Date() : d; }
+  var en = function (d) { return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); };
+  var zh = function (d) { return d.getFullYear() + ' 年 ' + (d.getMonth() + 1) + ' 月 ' + d.getDate() + ' 日'; };
+  var money = function (n) { n = Number(n) || 0; return '$' + Math.round(n).toLocaleString('en-NZ'); };
+
+  function values() {
+    var n = function (k) { return Number(S[k]) || 0; };
+    return {
+      areas: S.areas || '—',
+      'eb$': money(n('eb')), 'em$': money(n('em')), 'gb$': money(n('gb')), 'gm$': money(n('gm')),
+      'cb$': money(n('cb')), 'sl$': money(n('sl')), 'sf$': money(n('sf')), 'pm$': money(n('pm')),
+      'ey$': money(n('eb') + 12 * n('em')),
+      'gy$': money(n('gb') + 12 * n('gm')),
+      'cy$': money(n('cb') + 12 * n('sl'))
+    };
+  }
+  function render() {
+    var v = values();
+    document.querySelectorAll('[data-b]').forEach(function (el) { el.textContent = v[el.getAttribute('data-b')]; });
+    $('#f-link').value = clientLink();
+  }
+
+  // Client link: the quote's values travel in the URL, so each client gets their own link
+  var ALWAYS = [];
+  function clientLink() {
+    var q = new URLSearchParams();
+    Object.keys(DEFAULTS).forEach(function (k) {
+      if (ALWAYS.indexOf(k) > -1 || String(S[k]) !== String(DEFAULTS[k])) q.set(k, S[k]);
+    });
+    if (document.body.classList.contains('lang-zh')) q.set('lang', 'zh');
+    var qs = q.toString();
+    return location.origin + location.pathname + (qs ? '?' + qs : '');
+  }
+  $('#copy').addEventListener('click', function () {
+    var inp = $('#f-link'), btn = this;
+    function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy client link'; }, 1500); }
+    if (navigator.clipboard) navigator.clipboard.writeText(inp.value).then(done, function () { inp.select(); });
+    else inp.select();
+  });
+
+  // Fill-in panel: shown only when the link ends in #edit
+  var panel = $('#editor');
+  function showPanel() { panel.hidden = location.hash !== '#edit'; }
+  document.querySelectorAll('[data-k]').forEach(function (inp) {
+    inp.value = S[inp.getAttribute('data-k')];
+    inp.addEventListener('input', function () {
+      var k = inp.getAttribute('data-k');
+      S[k] = inp.type === 'number' ? (inp.value === '' ? '' : Number(inp.value)) : inp.value;
+      save(); render();
+    });
+  });
+  $('#reset').addEventListener('click', function () {
+    S = Object.assign({}, DEFAULTS); save();
+    document.querySelectorAll('[data-k]').forEach(function (inp) { inp.value = S[inp.getAttribute('data-k')]; });
+    render();
+  });
+  window.addEventListener('hashchange', showPanel);
+
+  // Language
+  var bEn = $('#btn-en'), bZh = $('#btn-zh');
+  function setLang(l) {
+    document.body.classList.toggle('lang-zh', l === 'zh');
+    bEn.setAttribute('aria-pressed', String(l === 'en'));
+    bZh.setAttribute('aria-pressed', String(l === 'zh'));
+    try { localStorage.setItem('wq-lang', l); } catch (e) {}
+    $('#f-link').value = clientLink();
+  }
+  bEn.addEventListener('click', function () { setLang('en'); });
+  bZh.addEventListener('click', function () { setLang('zh'); });
+
+  load();
+  document.querySelectorAll('[data-k]').forEach(function (inp) { inp.value = S[inp.getAttribute('data-k')]; });
+  render(); showPanel();
+  var urlLang = new URLSearchParams(location.search).get('lang');
+  if (urlLang) setLang(urlLang === 'zh' ? 'zh' : 'en');
+  else { try { if (localStorage.getItem('wq-lang') === 'zh') setLang('zh'); } catch (e) {} }
+})();
+</script>
+</body></html>
