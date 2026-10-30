@@ -42,19 +42,6 @@ body.lang-zh .z { display: inline; }
 
 .wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 64px; display: grid; gap: 48px; }
 
-/* Fill-in panel (only with #edit in the link) */
-.editor { background: var(--surface); border: 2px dashed var(--accent); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
-.editor h2 { font-size: 20px; }
-.editor p { margin: 0; color: var(--muted); font-size: 13px; max-width: 70ch; }
-.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
-.fields label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: .03em; min-width: 0; }
-.fields input { font: inherit; font-size: 15px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%; box-sizing: border-box; font-variant-numeric: tabular-nums; }
-.fields input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.fields .wide { grid-column: 1 / -1; }
-.group-label { margin: 4px 0 -4px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); }
-.editor-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.editor-actions button { font: inherit; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
-.editor-actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 h1 { font-family: var(--display); font-weight: 400; margin: 0; }
 h2 { font-family: var(--display); font-weight: 400; font-size: 26px; margin: 0; text-wrap: balance; }
@@ -150,27 +137,6 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
 
 <div class="wrap">
 
-  <section class="editor" id="editor" hidden aria-labelledby="h-ed">
-    <h2 id="h-ed">Fill in this quote</h2>
-    <p>Only you see this panel (the link ends in #edit). Fill in the fields, then copy the client link at the bottom and send it. The client sees exactly these values; nothing is stored on the server.</p>
-    <div class="fields">
-      <label class="wide" for="f-areas">Areas to rank for (shown in Growth)<input id="f-areas" data-k="areas" type="text"></label>
-    </div>
-    <p class="group-label">Prices (NZD, excluding GST)</p>
-    <div class="fields">
-      <label for="p-eb">Essential build<input id="p-eb" data-k="eb" type="number" min="0" step="50"></label>
-      <label for="p-em">Essential monthly<input id="p-em" data-k="em" type="number" min="0" step="5"></label>
-      <label for="p-gb">Growth build<input id="p-gb" data-k="gb" type="number" min="0" step="50"></label>
-      <label for="p-gm">Growth monthly<input id="p-gm" data-k="gm" type="number" min="0" step="5"></label>
-      <label for="p-cb">Complete build (12-month deal)<input id="p-cb" data-k="cb" type="number" min="0" step="50"></label>
-      <label for="p-sl">Social Lite monthly<input id="p-sl" data-k="sl" type="number" min="0" step="10"></label>
-      <label for="p-sf">Social Full monthly<input id="p-sf" data-k="sf" type="number" min="0" step="10"></label>
-      <label for="p-pm">Growth paid monthly (24 months)<input id="p-pm" data-k="pm" type="number" min="0" step="5"></label>
-    </div>
-    <div class="fields"><label class="wide" for="f-link">Client link<input id="f-link" type="text" readonly></label></div>
-    <div class="editor-actions"><button type="button" id="copy">Copy client link</button><button type="button" id="reset">Reset to defaults</button></div>
-  </section>
-
   <header class="hero">
     <div class="hero-bar">
       <span class="kicker"><span class="e">Proposal</span><span class="z">合作方案</span></span>
@@ -205,8 +171,8 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
           <p class="for"><span class="e">A clean, professional website that shows your services and takes enquiries.</span><span class="z">简洁专业的官网，展示服务并接收咨询。</span></p>
         </div>
         <div class="price">
-          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt" data-b="eb$"></span></div>
-          <div class="row"><span class="lbl"><span class="e">Hosting &amp; care</span><span class="z">托管维护</span></span><span class="amt"><span data-b="em$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt">$1,500</span></div>
+          <div class="row"><span class="lbl"><span class="e">Hosting &amp; care</span><span class="z">托管维护</span></span><span class="amt"><span>$80</span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
         </div>
         <p class="sub"><span class="e">Website</span><span class="z">网站内容</span></p>
         <ul>
@@ -221,7 +187,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
           <li><span class="e">NZ hosting, SSL, daily backups, updates</span><span class="z">新西兰服务器托管、SSL、每日备份、系统更新</span></li>
           <li><span class="e">Up to 30 minutes of small edits</span><span class="z">30 分钟内的小修改</span></li>
         </ul>
-        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong data-b="ey$"></strong></div>
+        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong>$2,460</strong></div>
       </article>
 
       <article class="card rec">
@@ -231,13 +197,13 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
           <p class="for"><span class="e">Website plus local Google presence, so more people nearby find you and get in touch.</span><span class="z">官网加 Google 本地曝光，让附近更多人找到您并联系您。</span></p>
         </div>
         <div class="price">
-          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt" data-b="gb$"></span></div>
-          <div class="row"><span class="lbl"><span class="e">Care &amp; local growth</span><span class="z">维护与本地获客</span></span><span class="amt"><span data-b="gm$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt">$2,900</span></div>
+          <div class="row"><span class="lbl"><span class="e">Care &amp; local growth</span><span class="z">维护与本地获客</span></span><span class="amt"><span>$199</span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
         </div>
         <p class="sub"><span class="e">Everything in Essential, plus</span><span class="z">包含 Essential 全部内容，另加</span></p>
         <ul>
           <li><span class="e">6–8 pages, adding gift vouchers, gallery, team, FAQ &amp; booking policy</span><span class="z">6–8 页，增加礼品券、相册、团队介绍、常见问题与预约须知</span></li>
-          <li><span class="e">Website copy written for local search: <span data-b="areas"></span></span><span class="z">针对本地搜索撰写文案：<span data-b="areas"></span></span></li>
+          <li><span class="e">Website copy written for local search: <span>your suburb and the towns around it</span></span><span class="z">针对本地搜索撰写文案：<span>your suburb and the towns around it</span></span></li>
           <li><span class="e">Google Business Profile set up and optimised</span><span class="z">Google 商家资料设置与优化</span></li>
           <li><span class="e">Google Analytics and Search Console</span><span class="z">接入 Google Analytics 与 Search Console</span></li>
           <li><span class="e">Review kit: in-store QR cards and a text-message template</span><span class="z">好评收集工具：店内二维码卡片和短信邀评模板</span></li>
@@ -251,7 +217,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
           <li><span class="e">Replies to your Google reviews</span><span class="z">代回复 Google 评价</span></li>
           <li><span class="e">Monthly report: visits, enquiry clicks, new reviews</span><span class="z">月度报告：访问量、咨询点击、新增评价</span></li>
         </ul>
-        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong data-b="gy$"></strong></div>
+        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong>$5,288</strong></div>
       </article>
 
       <article class="card">
@@ -261,10 +227,10 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
           <p class="for"><span class="e">Everything handled for you: website, Google and Facebook &amp; Instagram.</span><span class="z">线上全部交给我们：官网、Google、Facebook 和 Instagram。</span></p>
         </div>
         <div class="price">
-          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt" data-b="cb$"></span></div>
-          <div class="note"><span class="e">Reduced from <span data-b="gb$"></span> with a 12-month agreement</span><span class="z">签约 12 个月，由 <span data-b="gb$"></span> 减至 <span data-b="cb$"></span></span></div>
-          <div class="row"><span class="lbl">Social Lite</span><span class="amt"><span data-b="sl$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
-          <div class="row"><span class="lbl">Social Full</span><span class="amt"><span data-b="sf$"></span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+          <div class="row"><span class="lbl"><span class="e">Website build</span><span class="z">建站费</span></span><span class="amt">$2,200</span></div>
+          <div class="note"><span class="e">Reduced from <span>$2,900</span> with a 12-month agreement</span><span class="z">签约 12 个月，由 <span>$2,900</span> 减至 <span>$2,200</span></span></div>
+          <div class="row"><span class="lbl">Social Lite</span><span class="amt"><span>$850</span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
+          <div class="row"><span class="lbl">Social Full</span><span class="amt"><span>$1,200</span><small><span class="e">/month</span><span class="z">/月</span></small></span></div>
         </div>
         <p class="sub"><span class="e">Everything in Growth, plus</span><span class="z">包含 Growth 全部内容，另加</span></p>
         <ul>
@@ -278,7 +244,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
         <ul>
           <li><span class="e">All Growth monthly services</span><span class="z">Growth 套餐全部月度服务</span></li>
         </ul>
-        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong><span class="e">from </span><span class="z">起 </span><span data-b="cy$"></span></strong></div>
+        <div class="year"><span><span class="e">First-year total</span><span class="z">首年合计</span></span><strong><span class="e">from </span><span class="z">起 </span><span>$12,400</span></strong></div>
       </article>
 
     </div>
@@ -303,7 +269,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
           <tr><td><span class="e">Growth monthly services (website care, Google posts, review replies)</span><span class="z">Growth 月度服务（网站维护、Google 动态、评价回复）</span></td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
         </tbody>
         <tfoot>
-          <tr><td><span class="e">Monthly fee</span><span class="z">月费</span></td><td class="c" data-b="sl$"></td><td class="c" data-b="sf$"></td></tr>
+          <tr><td><span class="e">Monthly fee</span><span class="z">月费</span></td><td class="c">$850</td><td class="c">$1,200</td></tr>
         </tfoot>
       </table>
     </div>
@@ -314,11 +280,11 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
     <div class="callout">
       <div>
         <h3><span class="e">Growth, paid monthly</span><span class="z">Growth 套餐月付</span></h3>
-        <p><span class="e">The full Growth website and monthly service with nothing to pay upfront. 24-month agreement. The website becomes yours at the end of the term, and the fee then drops to the standard <span data-b="gm$"></span>/month (or <span data-b="em$"></span>/month for hosting only).</span><span class="z">完整的 Growth 网站与月度服务，无需首付。签约 24 个月，期满后网站归您所有，月费降至标准的 <span data-b="gm$"></span>/月（或只保留托管 <span data-b="em$"></span>/月）。</span></p>
+        <p><span class="e">The full Growth website and monthly service with nothing to pay upfront. 24-month agreement. The website becomes yours at the end of the term, and the fee then drops to the standard <span>$199</span>/month (or <span>$80</span>/month for hosting only).</span><span class="z">完整的 Growth 网站与月度服务，无需首付。签约 24 个月，期满后网站归您所有，月费降至标准的 <span>$199</span>/月（或只保留托管 <span>$80</span>/月）。</span></p>
       </div>
       <div class="big">
         <b>$0 <span class="u"><span class="e">upfront</span><span class="z">首付</span></span></b>
-        <b><span data-b="pm$"></span><span class="u"><span class="e">/month</span><span class="z">/月</span></span></b>
+        <b><span>$329</span><span class="u"><span class="e">/month</span><span class="z">/月</span></span></b>
         <span class="s"><span class="e">for 24 months</span><span class="z">共 24 个月</span></span>
       </div>
     </div>
@@ -370,102 +336,16 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
 
 <script>
 (function () {
-  var $ = function (s) { return document.querySelector(s); };
-  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
-  var iso = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
-  var today = new Date();
-  var DEFAULTS = {
-    areas: 'your suburb and the towns around it',
-    eb: 1500, em: 80, gb: 2900, gm: 199, cb: 2200, sl: 850, sf: 1200, pm: 329
-  };
-  var KEY = 'wq-template-v1', S = {};
-  function load() {
-    var q = new URLSearchParams(location.search), fromUrl = {}, saved = {};
-    Object.keys(DEFAULTS).forEach(function (k) { if (q.has(k)) fromUrl[k] = q.get(k); });
-    if (!Object.keys(fromUrl).length) {
-      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
-    }
-    S = Object.assign({}, DEFAULTS, saved, fromUrl);
-  }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
-
-  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function parse(v) { var p = String(v).split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2]); return isNaN(d) ? new Date() : d; }
-  var en = function (d) { return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); };
-  var zh = function (d) { return d.getFullYear() + ' 年 ' + (d.getMonth() + 1) + ' 月 ' + d.getDate() + ' 日'; };
-  var money = function (n) { n = Number(n) || 0; return '$' + Math.round(n).toLocaleString('en-NZ'); };
-
-  function values() {
-    var n = function (k) { return Number(S[k]) || 0; };
-    return {
-      areas: S.areas || '—',
-      'eb$': money(n('eb')), 'em$': money(n('em')), 'gb$': money(n('gb')), 'gm$': money(n('gm')),
-      'cb$': money(n('cb')), 'sl$': money(n('sl')), 'sf$': money(n('sf')), 'pm$': money(n('pm')),
-      'ey$': money(n('eb') + 12 * n('em')),
-      'gy$': money(n('gb') + 12 * n('gm')),
-      'cy$': money(n('cb') + 12 * n('sl'))
-    };
-  }
-  function render() {
-    var v = values();
-    document.querySelectorAll('[data-b]').forEach(function (el) { el.textContent = v[el.getAttribute('data-b')]; });
-    $('#f-link').value = clientLink();
-  }
-
-  // Client link: the quote's values travel in the URL, so each client gets their own link
-  var ALWAYS = [];
-  function clientLink() {
-    var q = new URLSearchParams();
-    Object.keys(DEFAULTS).forEach(function (k) {
-      if (ALWAYS.indexOf(k) > -1 || String(S[k]) !== String(DEFAULTS[k])) q.set(k, S[k]);
-    });
-    if (document.body.classList.contains('lang-zh')) q.set('lang', 'zh');
-    var qs = q.toString();
-    return location.origin + location.pathname + (qs ? '?' + qs : '');
-  }
-  $('#copy').addEventListener('click', function () {
-    var inp = $('#f-link'), btn = this;
-    function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy client link'; }, 1500); }
-    if (navigator.clipboard) navigator.clipboard.writeText(inp.value).then(done, function () { inp.select(); });
-    else inp.select();
-  });
-
-  // Fill-in panel: shown only when the link ends in #edit
-  var panel = $('#editor');
-  function showPanel() { panel.hidden = location.hash !== '#edit'; }
-  document.querySelectorAll('[data-k]').forEach(function (inp) {
-    inp.value = S[inp.getAttribute('data-k')];
-    inp.addEventListener('input', function () {
-      var k = inp.getAttribute('data-k');
-      S[k] = inp.type === 'number' ? (inp.value === '' ? '' : Number(inp.value)) : inp.value;
-      save(); render();
-    });
-  });
-  $('#reset').addEventListener('click', function () {
-    S = Object.assign({}, DEFAULTS); save();
-    document.querySelectorAll('[data-k]').forEach(function (inp) { inp.value = S[inp.getAttribute('data-k')]; });
-    render();
-  });
-  window.addEventListener('hashchange', showPanel);
-
-  // Language
-  var bEn = $('#btn-en'), bZh = $('#btn-zh');
+  var bEn = document.getElementById('btn-en'), bZh = document.getElementById('btn-zh');
   function setLang(l) {
     document.body.classList.toggle('lang-zh', l === 'zh');
     bEn.setAttribute('aria-pressed', String(l === 'en'));
     bZh.setAttribute('aria-pressed', String(l === 'zh'));
     try { localStorage.setItem('wq-lang', l); } catch (e) {}
-    $('#f-link').value = clientLink();
   }
   bEn.addEventListener('click', function () { setLang('en'); });
   bZh.addEventListener('click', function () { setLang('zh'); });
-
-  load();
-  document.querySelectorAll('[data-k]').forEach(function (inp) { inp.value = S[inp.getAttribute('data-k')]; });
-  render(); showPanel();
-  var urlLang = new URLSearchParams(location.search).get('lang');
-  if (urlLang) setLang(urlLang === 'zh' ? 'zh' : 'en');
-  else { try { if (localStorage.getItem('wq-lang') === 'zh') setLang('zh'); } catch (e) {} }
+  try { if (localStorage.getItem('wq-lang') === 'zh') setLang('zh'); } catch (e) {}
 })();
 </script>
 </body></html>
