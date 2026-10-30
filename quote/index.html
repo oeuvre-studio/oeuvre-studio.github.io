@@ -122,6 +122,12 @@ body.lang-zh .statement { letter-spacing: 0; line-height: 1.12; font-size: clamp
 .ticket-foot { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
 @media (max-width: 760px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
 
+.contact-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.contact-link { display: grid; gap: 2px; text-decoration: none; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 20px; min-width: 0; }
+.contact-link:hover { border-color: var(--accent); }
+.contact-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.contact-link .lbl { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.contact-link .val { font-family: var(--display); font-size: 22px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 20px; }
 
 @media (max-width: 860px) {
@@ -327,6 +333,13 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line)
       <li><span class="e">Revisions are as listed in each package. Extra changes are $75/hour. Advertising spend is not included in any fee.</span><span class="z">修改次数按各套餐说明，超出部分按 $75/小时收费。所有费用均不含广告投放费。</span></li>
       <li><span class="e">All content follows NZ advertising standards: no medical or cure claims.</span><span class="z">所有内容遵守新西兰广告标准，不使用医疗或治疗功效宣传。</span></li>
     </ol>
+  </section>
+
+  <section class="section contact" aria-labelledby="h-ct">
+    <h2 id="h-ct"><span class="e">Get in touch</span><span class="z">联系我们</span></h2>
+    <div class="contact-row">
+      <a class="contact-link" href="tel:+64220892352"><span class="lbl"><span class="e">Phone</span><span class="z">电话</span></span><span class="val">022 089 2352</span></a>
+    </div>
   </section>
 
   <footer>
